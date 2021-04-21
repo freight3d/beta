@@ -1,0 +1,212 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "Sketchup glTF Exporter v1.2.6 by Centaur"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "samplers": [
+    {
+    }
+  ],
+  "nodes": [
+    {
+      "name": "root",
+      "mesh": 0
+    }
+  ],
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.0,
+          0.0,
+          0.1332,
+          1.0
+        ],
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.9
+      },
+      "name": "Color I08"
+    },
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.4045,
+          0.4045,
+          0.4045,
+          1.0
+        ],
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.9
+      },
+      "name": "0132_LightGray"
+    },
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.1275,
+          0.3066,
+          0.8513,
+          0.5
+        ],
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.9
+      },
+      "name": "Translucent Glass Blue",
+      "doubleSided": true,
+      "alphaMode": "BLEND"
+    },
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.2195,
+          0.2195,
+          0.2195,
+          0.5
+        ],
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.9
+      },
+      "name": "Translucent Glass Gray",
+      "doubleSided": true,
+      "alphaMode": "BLEND"
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          },
+          "indices": 2,
+          "mode": 4,
+          "material": 0
+        },
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          },
+          "indices": 3,
+          "mode": 4,
+          "material": 1
+        },
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          },
+          "indices": 4,
+          "mode": 4,
+          "material": 2
+        },
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          },
+          "indices": 5,
+          "mode": 4,
+          "material": 3
+        }
+      ]
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 73,
+      "type": "VEC3",
+      "min": [
+        0.0,
+        -3.8882535872928466e-16,
+        -6.35
+      ],
+      "max": [
+        4.4704000000000015,
+        2.6162,
+        1.0949322101816656e-15
+      ]
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 73,
+      "type": "VEC3",
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5121,
+      "count": 12,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5121,
+      "count": 54,
+      "type": "SCALAR",
+      "byteOffset": 12
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5121,
+      "count": 30,
+      "type": "SCALAR",
+      "byteOffset": 66
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5121,
+      "count": 42,
+      "type": "SCALAR",
+      "byteOffset": 96
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 876,
+      "target": 34962,
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 876,
+      "byteLength": 876,
+      "target": 34962,
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 1752,
+      "byteLength": 138,
+      "target": 34963
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "data:application/octet-stream;base64,hA0PQKkT0DwzM0vAfyTgJqkT0DwzM8vAfyRgJqkT0DwzM0vAhA0PQKkT0DwzM8vAhA2PQKkT0Dx9kp0mhA0PQKkT0DwcWR0mhA2PQKkT0DwzM0vAhA2PQH8k4KUzM8vAAAAAAAAAAAAAAAAAfyTgJn8k4KUzM8vAhA2PQDgPLgvey50mhA2PQKkT0Dx9kp0mAAAAAAAAAAAAAAAAhA2PQDgPLgvey50maS19B6kT0DygheWhhA0PQKkT0DwcWR0mhA2PQH8k4KUzM8vAhA2PQKkT0Dx9kp0mhA2PQDgPLgvey50mhA2PQKkT0DwzM0vAhA2PQKkT0DwzM8vAfyRgJqkT0DwzM0vAAAAAAAAAAAAAAAAAaS19B6kT0DygheWhfyTgJn8k4KUzM8vAfyTgJqkT0DwzM8vAhA2PQKkT0DwzM8vAfyTgJqkT0DwzM8vAhA2PQH8k4KUzM8vAfyTgJn8k4KUzM8vAhA2PQKkT0DwzM8vAhA0PQKkT0DwzM8vAaS19B6kT0DygheWhMnd1QHGsA0D/c2ombjRYQOauHUAzM8vAbjRYQOauHUAIAUMmMnd1QHGsA0AzM8vAWRd3Pr1Sxj8gY8rAzSUmCueMiD+xn5akWRd3Pr1Sxj8L+CSk+T7fJueMiD8gY8rANs2LP+auHUBMfAYlXI8iP3GsA0AzM8vAXI8iP3GsA0BXRwgkNs2LP+auHUAzM8vADJNJQNJvJ0ASLTAm+Q+pP9JvJ0AzM8vA+Q+pP9JvJ0CeRzwlDJNJQNJvJ0AzM8vAhA2PQOeMiD8zM8vAylSHQL1Sxj8zm4cmhA2PQOeMiD/jYZQmylSHQL1Sxj8zM8vAylSHQL1Sxj8zM8vAMnd1QHGsA0D/c2omylSHQL1Sxj8zm4cmMnd1QHGsA0AzM8vAhA2PQOeMiD/jYZQmhA2PQOeMiD8zM8vAbjRYQOauHUAIAUMmDJNJQNJvJ0AzM8vADJNJQNJvJ0ASLTAmbjRYQOauHUAzM8vA+Q+pP9JvJ0CeRzwlNs2LP+auHUAzM8vANs2LP+auHUBMfAYl+Q+pP9JvJ0AzM8vAXI8iP3GsA0AzM8vAWRd3Pr1Sxj8L+CSkXI8iP3GsA0BXRwgkWRd3Pr1Sxj8gY8rA+T7fJueMiD8gY8rAzSUmCueMiD+xn5akdL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bigAAgL8yMY0kdL4bigAAgL8yMY0kdL4bigAAgL8yMY0kdL4bigAAgL8yMY0kMjGNpTIxjSQAAIA/MjGNpTIxjSQAAIA/MjGNpTIxjSQAAIA/MjGNpTIxjSQAAIA/MjGNpTIxjSQAAIA/AACAP3S+GwoyMY0lAACAP3S+GwoyMY0lAACAP3S+GwoyMY0lAACAP3S+GwoyMY0lAACAP3S+GwoyMY0lAACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAACAv3S+G4oyMY2ldL4bCgAAgD8yMY2kMjGNJTIxjaQAAIC/MjGNJTIxjaQAAIC/MjGNJTIxjaQAAIC/MjGNJTIxjaQAAIC/MjGNJTIxjaQAAIC/dL4bCgAAgD8yMY2kwBMqPzhWPz9+1wYlwBMqPzhWPz9+1wYlwBMqPzhWPz9+1wYlwBMqPzhWPz9+1wYlLvlkvy755D5mEo6lLvlkvy755D5mEo6lLvlkvy755D5mEo6lLvlkvy755D5mEo6lwBMqvzhWPz+/XnClwBMqvzhWPz+/XnClwBMqvzhWPz+/XnClwBMqvzhWPz+/XnCldL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kLvlkPy755D4tAF0lLvlkPy755D4tAF0lLvlkPy755D4tAF0lLvlkPy755D4tAF0lpFhKP3/RHD+m9DMlpFhKP3/RHD+m9DMlpFhKP3/RHD+m9DMlpFhKP3/RHD+m9DMlAACAP3S+GwoyMY0lAACAP3S+GwoyMY0l1QAOP0ABVT9EYcQk1QAOP0ABVT9EYcQk1QAOP0ABVT9EYcQk1QAOP0ABVT9EYcQk1QAOv0ABVT/NYFel1QAOv0ABVT/NYFel1QAOv0ABVT/NYFel1QAOv0ABVT/NYFelpFhKv3/RHD8WOYWlpFhKv3/RHD8WOYWlpFhKv3/RHD8WOYWlpFhKv3/RHD8WOYWlAACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAAECAQADBAAFAAQGBwgJCAcKCwwNDAsODgsPEBESERATExAUFRYXFhUYGBUZBgMAAwYaGxwdHBseHhsfBQIgAgUAISIjIiEkJSYnJiUoKSorKiksLS4vLi0wMTIzMjE0NTY3NjU4EzkRORM6OhMUOzw9PDs+P0BBQD9CQ0RFRENGRxdIF0cVFUcZ",
+      "byteLength": 1890
+    }
+  ]
+}

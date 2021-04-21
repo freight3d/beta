@@ -1,0 +1,212 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "Sketchup glTF Exporter v1.2.6 by Centaur"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "samplers": [
+    {
+    }
+  ],
+  "nodes": [
+    {
+      "name": "root",
+      "mesh": 0
+    }
+  ],
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.4045,
+          0.4045,
+          0.4045,
+          1.0
+        ],
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.9
+      },
+      "name": "0132_LightGray"
+    },
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.0,
+          0.0,
+          0.1332,
+          1.0
+        ],
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.9
+      },
+      "name": "Color I08"
+    },
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.1275,
+          0.3066,
+          0.8513,
+          0.5
+        ],
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.9
+      },
+      "name": "Translucent Glass Blue",
+      "doubleSided": true,
+      "alphaMode": "BLEND"
+    },
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.2195,
+          0.2195,
+          0.2195,
+          0.5
+        ],
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.9
+      },
+      "name": "Translucent Glass Gray",
+      "doubleSided": true,
+      "alphaMode": "BLEND"
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          },
+          "indices": 2,
+          "mode": 4,
+          "material": 0
+        },
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          },
+          "indices": 3,
+          "mode": 4,
+          "material": 1
+        },
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          },
+          "indices": 4,
+          "mode": 4,
+          "material": 2
+        },
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          },
+          "indices": 5,
+          "mode": 4,
+          "material": 3
+        }
+      ]
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 68,
+      "type": "VEC3",
+      "min": [
+        0.0,
+        -1.9441267936464233e-16,
+        -3.175
+      ],
+      "max": [
+        4.470400000000001,
+        2.6162,
+        1.0949322101816656e-15
+      ]
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 68,
+      "type": "VEC3",
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5121,
+      "count": 42,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5121,
+      "count": 6,
+      "type": "SCALAR",
+      "byteOffset": 42
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5121,
+      "count": 30,
+      "type": "SCALAR",
+      "byteOffset": 48
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5121,
+      "count": 36,
+      "type": "SCALAR",
+      "byteOffset": 78
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 816,
+      "target": 34962,
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 816,
+      "byteLength": 816,
+      "target": 34962,
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 1632,
+      "byteLength": 114,
+      "target": 34963
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "data:application/octet-stream;base64,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",
+      "byteLength": 1746
+    }
+  ]
+}

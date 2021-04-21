@@ -1,0 +1,242 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "Sketchup glTF Exporter v1.2.6 by Centaur"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "samplers": [
+    {
+    }
+  ],
+  "nodes": [
+    {
+      "name": "root",
+      "mesh": 0
+    }
+  ],
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.0802,
+          0.0802,
+          0.0802,
+          1.0
+        ],
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.9
+      },
+      "name": "0135_DarkGray"
+    },
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.4045,
+          0.4045,
+          0.4045,
+          1.0
+        ],
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.9
+      },
+      "name": "0132_LightGray"
+    },
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.1275,
+          0.3066,
+          0.8513,
+          0.5
+        ],
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.9
+      },
+      "name": "Translucent Glass Blue",
+      "doubleSided": true,
+      "alphaMode": "BLEND"
+    },
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.2195,
+          0.2195,
+          0.2195,
+          0.5
+        ],
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.9
+      },
+      "name": "Translucent Glass Gray",
+      "doubleSided": true,
+      "alphaMode": "BLEND"
+    },
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.2176,
+          0.2176,
+          0.2176,
+          1.0
+        ],
+        "metallicFactor": 0.1,
+        "roughnessFactor": 0.9
+      },
+      "name": "default material",
+      "doubleSided": true
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          },
+          "indices": 2,
+          "mode": 4,
+          "material": 0
+        },
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          },
+          "indices": 3,
+          "mode": 4,
+          "material": 1
+        },
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          },
+          "indices": 4,
+          "mode": 4,
+          "material": 2
+        },
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          },
+          "indices": 5,
+          "mode": 4,
+          "material": 3
+        },
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          },
+          "indices": 6,
+          "mode": 4,
+          "material": 4
+        }
+      ]
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 46,
+      "type": "VEC3",
+      "min": [
+        -0.4444999999999999,
+        -9.331808609502832e-17,
+        -1.5240000000000002
+      ],
+      "max": [
+        1.5748000000000002,
+        1.6256,
+        3.857147558594504e-16
+      ]
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 46,
+      "type": "VEC3",
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "max": [
+        2.4492935982947064e-16,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5121,
+      "count": 6,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5121,
+      "count": 24,
+      "type": "SCALAR",
+      "byteOffset": 6
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5121,
+      "count": 18,
+      "type": "SCALAR",
+      "byteOffset": 30
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5121,
+      "count": 30,
+      "type": "SCALAR",
+      "byteOffset": 48
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5121,
+      "count": 6,
+      "type": "SCALAR",
+      "byteOffset": 78
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 552,
+      "target": 34962,
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 552,
+      "byteLength": 552,
+      "target": 34962,
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 1104,
+      "byteLength": 84,
+      "target": 34963
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "data:application/octet-stream;base64,Ri3XJakT0DxvEsO/AAAAAAAAAAAAAAAAaS19B6kT0DygheWhRi3XJUYt16RvEsO/DJPJP6kT0Dzuc90lRi3XJakT0DxvEsO/aS19B6kT0DygheWhDJPJP6kT0DxvEsO/DJPJP0Yt16RvEsO/AAAAAAAAAAAAAAAARi3XJUYt16RvEsO/DJPJP/5DdQpzWd4lRi3XJakT0DxvEsO/DJPJP0Yt16RvEsO/Ri3XJUYt16RvEsO/DJPJP6kT0DxvEsO/DJPJP6kT0Dzuc90lAAAAAAAAAAAAAAAADJPJP/5DdQpzWd4laS19B6kT0DygheWhaS19CqkT0D+gheWkgZXjvqkT0D9vEsO/gZXjvqkT0D/kR3ClRi3XJakT0D9vEsO/DJPJP6kT0D8L+KQlDJPJP6kT0D9vEsO/gZXjvoQNDz9vEsO/AAAAAAAAAAAAAAAAgZXjvoQNDz8L+CSlRi3XJUYt16RvEsO/gZXjvoQNDz8L+CSlaS19CqkT0D+gheWkgZXjvqkT0D/kR3ClgZXjvoQNDz9vEsO/Ri3XJakT0D9vEsO/gZXjvqkT0D9vEsO/gZXjvqkT0D9vEsO/gZXjvoQNDz8L+CSlgZXjvqkT0D/kR3ClgZXjvoQNDz9vEsO/DJPJP6kT0D9vEsO/DJPJP6kT0Dzuc90lDJPJP6kT0D8L+KQlDJPJP6kT0DxvEsO/DJPJP/5DdQpzWd4lDJPJP0Yt16RvEsO/AACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAACAv3S+G4oyMY2ldL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bigAAgL8yMY0kdL4bigAAgL8yMY0kdL4bigAAgL8yMY0kdL4bigAAgL8yMY0kMjGNJTIxjaQAAIC/MjGNJTIxjaQAAIC/MjGNJTIxjaQAAIC/MjGNJTIxjaQAAIC/MjGNpTIxjSQAAIA/MjGNpTIxjSQAAIA/MjGNpTIxjSQAAIA/MjGNpTIxjSQAAIA/dL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2kdL4bCgAAgD8yMY2ki1hIv7RdH7/qCzGli1hIv7RdH7/qCzGli1hIv7RdH7/qCzGli1hIv7RdH7/qCzGlMjGNpTIxjSQAAIA/MjGNpTIxjSQAAIA/MjGNpTIxjSQAAIA/MjGNJTIxjaQAAIC/MjGNJTIxjaQAAIC/MjGNJTIxjaQAAIC/AACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAACAv3S+G4oyMY2lAAECAQADBAUGBQQHCAkKCQgLDA0ODQwPEBESERATFBUWFRQXFxQYFxgZGhscGxodEx4RHhMfHh8gIQwODCEiIiEjJCUmJSQnKCkqKSgrKywpLCst",
+      "byteLength": 1188
+    }
+  ]
+}
