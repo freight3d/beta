@@ -63,7 +63,7 @@ THREE.DragControls = function ( _objects, _camera, _domElement ) {
 				collisionVar = [false];
 			}
 			else{
-		collisionVar = checkCollision2(_selected);
+		//collisionVar = checkCollision2(_selected);
 	}
 		}
 		var rect = _domElement.getBoundingClientRect();
