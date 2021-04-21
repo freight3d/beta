@@ -143,7 +143,7 @@ function createUserData(){
         //	collisionBool=false;
         //	collisionBoolArray.push(collisionBool);
         //}    
-    }
+  //  }
         
 	//let contadorTrue=0;
 	//for (var i = 0; i< collisionBoolArray.length;i++) {
