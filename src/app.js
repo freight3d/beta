@@ -1,6 +1,6 @@
 var collisionMesh = [];
-var gravityOnOff = true;
-var arrayPos= [];
+//var gravityOnOff = true;
+//var arrayPos= [];
 var count_iter;
 
 const renderer =  new THREE.WebGLRenderer({antialias: true});
@@ -34,13 +34,13 @@ var controls = new THREE.OrbitControls( camera, renderer.domElement );
 controls2.addEventListener( 'dragstart', function ( event ) {
 		
 	controls.enabled = false;
-	gravityOnOff=false;
+	//gravityOnOff=false;
 } );
 
 controls2.addEventListener( 'dragend', function ( event ) {
 
 	controls.enabled = true;
-	gravityOnOff=true;
+	//gravityOnOff=true;
 } );
 
 //
@@ -114,100 +114,56 @@ function createUserData(){
    	}
 }
 
-function savePos(_mesh) {
-	var collisionBool=false;
-	var collisionBoolAll=false;
-	var collisionPoint;
-	let collisionBoolArray=[];
+//function savePos(_mesh) {
+	//var collisionBool=false;
+	//var collisionBoolAll=false;
+	//var collisionPoint;
+	//let collisionBoolArray=[];
 		
-	var originPoint = _mesh.position.clone();
+	//var originPoint = _mesh.position.clone();
 
-    for (var vertexIndex = 0; vertexIndex < _mesh.geometry.vertices.length; vertexIndex++) {
+    //for (var vertexIndex = 0; vertexIndex < _mesh.geometry.vertices.length; vertexIndex++) {
             
-        var localVertex = _mesh.geometry.vertices[vertexIndex].clone();       
-        var globalVertex = localVertex.applyMatrix4(_mesh.matrix);
-        var directionVector = globalVertex.sub(_mesh.position);
-        var ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize());
-        var collisionResults = ray.intersectObjects(collisionMesh);
+       // var localVertex = _mesh.geometry.vertices[vertexIndex].clone();       
+       // var globalVertex = localVertex.applyMatrix4(_mesh.matrix);
+        //var directionVector = globalVertex.sub(_mesh.position);
+        //var ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize());
+        //var collisionResults = ray.intersectObjects(collisionMesh);
 
-        if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
+        //if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
           
-            collisionBool=true;
-            collisionBoolArray.push(collisionBool);
-            collisionPoint=collisionResults[0].point;
+        //    collisionBool=true;
+        //   collisionBoolArray.push(collisionBool);
+        //    collisionPoint=collisionResults[0].point;
              
-            controls2.enabled=false;    
-        }
-        else{
-        	controls2.enabled=true;
-        	collisionBool=false;
-        	collisionBoolArray.push(collisionBool);
-        }    
+        //    controls2.enabled=false;    
+        //}
+        //else{
+        //	controls2.enabled=true;
+        //	collisionBool=false;
+        //	collisionBoolArray.push(collisionBool);
+        //}    
     }
         
-	let contadorTrue=0;
-	for (var i = 0; i< collisionBoolArray.length;i++) {
-    	if(collisionBoolArray[i]===true){
-    		contadorTrue+=1;
-    	}
+	//let contadorTrue=0;
+	//for (var i = 0; i< collisionBoolArray.length;i++) {
+    //	if(collisionBoolArray[i]===true){
+    //		contadorTrue+=1;
+    //	}
 	}
 
-	if(contadorTrue>0){
-    	collisionBoolAll=true;
-	}
+	//if(contadorTrue>0){
+    //	collisionBoolAll=true;
+	//}
 
-	let posVector = _mesh.position.clone();
-	_mesh.userData.push([posVector,collisionBoolAll,collisionBoolArray]);
+	//let posVector = _mesh.position.clone();
+	//_mesh.userData.push([posVector,collisionBoolAll,collisionBoolArray]);
 
-	if(_mesh.userData.length>50){
-    	_mesh.userData.shift();
-	}            	
-}
+	//if(_mesh.userData.length>50){
+    //	_mesh.userData.shift();
+	//}            	
+//}
 
-function checkCollision2(_mesh) {
-	var collisionBool=false;
-	var collisionBoolAll=false;
-	var collisionPoint;
-	let collisionBoolArray=[];
-		
-    var originPoint = _mesh.position.clone();
-
-    for (var vertexIndex = 0; vertexIndex < _mesh.geometry.vertices.length; vertexIndex++) {
-            
-        var localVertex = _mesh.geometry.vertices[vertexIndex].clone();    
-        var globalVertex = localVertex.applyMatrix4(_mesh.matrix);
-        var directionVector = globalVertex.sub(_mesh.position);
-        var ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize());
-        var collisionResults = ray.intersectObjects(collisionMesh);
-           
-        if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
-          
-            collisionBool=true;
-            collisionBoolArray.push(collisionBool);
-            collisionPoint=collisionResults[0].point;   
-            controls2.enabled=false;
-           
-        }
-        else{
-        	controls2.enabled=true;
-        	collisionBool=false;
-        	collisionBoolArray.push(collisionBool);
-        }
-    }
-    let contadorTrue=0;
-    for (var i = 0; i< collisionBoolArray.length;i++) {
-    	if(collisionBoolArray[i]===true){
-    		contadorTrue+=1;
-    	}
-    }
-
-    if(contadorTrue>0){
-    	collisionBoolAll=true;
-    }
-             	
-    return [collisionBoolAll,collisionPoint];
-}
-  
 var animate = function (){
 	requestAnimationFrame(animate);
 	renderer.render(scene,camera);
@@ -215,7 +171,7 @@ var animate = function (){
 				   
 	var collvar;
 	for(var i=1;i<pieces.length;i++){	
-		savePos(pieces[i]);
+		//savePos(pieces[i]);
 			   		
 		_mesh = pieces[i];
 		if (collvar[0]){
