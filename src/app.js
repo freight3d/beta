@@ -18,7 +18,6 @@ container.appendChild(renderer.domElement);
 
 //object array
 var collisionMesh = [];
-var count_iter;
 var pieces=[];
 var pieces2=[];
 
@@ -195,13 +194,6 @@ var animate = function (){
 	for(var i=1;i<pieces.length;i++){	
 		savePos(pieces[i]);	   		
 		_mesh = pieces[i];
-		if (collvar[0]){
-			count_iter+=1;
-			let j= Math.max(pieces[i].userData.length - count_iter-1,0);		   			
-            _mesh.position.y=_mesh.userData[j][0].y;
-            _mesh.position.x=_mesh.userData[j][0].x;
-            _mesh.position.z=_mesh.userData[j][0].z;
-		};	
 	};
 };
 
