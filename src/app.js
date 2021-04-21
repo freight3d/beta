@@ -150,7 +150,7 @@ function createUserData(){
     //	if(collisionBoolArray[i]===true){
     //		contadorTrue+=1;
     //	}
-	}
+//	}
 
 	//if(contadorTrue>0){
     //	collisionBoolAll=true;
