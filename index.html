@@ -28,11 +28,8 @@
 					clear_canvas();
 					uld(model_name);	
 				 });
-				document.getElementById("cube").addEventListener("click", function(){
+				document.getElementById("piece").addEventListener("click", function(){
  				create_piece();
- 				});
-				document.getElementById("cylinder").addEventListener("click", function(){
- 				create_piece2();
  				});
 			};	
 		</script>	
@@ -41,6 +38,7 @@
 			<h1><a href="/">Freight 3D Tool</a></h1>
 			<span class="separator layout-md"> | </span>
 			<span class="flex-grow"></span>
+			<!--button id="download-btn" class="item" style="display: none;">⬇&nbsp;&nbsp;&nbsp;Download</button-->
 			<h2><label for="models"> Choose ULD or Aircraft Main Deck &nbsp </label></h2>
 		  
 			<select name="models" id="models">
@@ -62,16 +60,14 @@
 		<div id="forma">
 		<form>
 			Length:
-			<input type="number" name="length" min="0" max="400" value="48">
+			<input type="number" name="length" min="0" max="400" placeholder="48">
 			Width:
-			<input type="number" name="width" min="0" max="200" value="40">
+			<input type="number" name="width" min="0" max="200" placeholder="40">
 			Height:
-			<input type="number" name="height" min="0" max="120" value="50">
+			<input type="number" name="height" min="0" max="120" placeholder="40">
 			<input type="radio" name="units" value="cm"> cm
 			<input type="radio" name="units" value="in" checked> in
-			<button class="button button1" id="cube"> Add Cube </button>
-			<button class="button button2" id="cylinder"> Add Cylinder </button>
-
+			<button type="button" id="piece"> Create Piece </button> 
 		</form>
 		</div>
 
