@@ -64,10 +64,10 @@ function uld(model_name){
 		obj.position.x += (obj.position.x - center.x);
 		obj.position.y += (obj.position.y - center.y);
 		obj.position.z += (obj.position.z - center.z);	
+		
 	}, undefined, function ( error ) {
 		console.error( error );
-		});
-	alert(scene.children.length);	
+		});		
 };
 
 // Create Cube 
@@ -89,8 +89,7 @@ function create_piece(){
 		cube.userData = [];
 		scene.add(cube);
 		pieces.push(cube);	
-		pieces2.push(cube);
-		alert(scene.children.length);			
+		pieces2.push(cube);		
 	});
 }
 
@@ -110,7 +109,6 @@ function create_piece2(){
 		scene.add(cube);
 		pieces.push(cube);	
 		pieces2.push(cube);	
-		alert(scene.children.length);	
 }	
 	
 //		
