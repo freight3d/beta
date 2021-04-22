@@ -102,7 +102,7 @@ function create_piece2(){
 			} 
             if(document.getElementsByName("units")[1].checked)
             {
-            geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/78.74,document.getElementsByName("height")[0].value/78.74,document.getElementsByName("length")[0].value/78.74,32);
+            geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/78.74,document.getElementsByName("height")[0].value/39.37,document.getElementsByName("length")[0].value/78.74,32);
             } 
         var cube = new THREE.Mesh( geometry, material );				 
 		cube.userData = [];
