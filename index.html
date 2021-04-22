@@ -28,8 +28,11 @@
 					clear_canvas();
 					uld(model_name);	
 				 });
-				document.getElementById("piece").addEventListener("click", function(){
+				document.getElementById("cube").addEventListener("click", function(){
  				create_piece();
+ 				});
+				document.getElementById("cylinder").addEventListener("click", function(){
+ 				create_piece2();
  				});
 			};	
 		</script>	
@@ -67,8 +70,8 @@
 			<input type="number" name="height" min="0" max="120" placeholder="40">
 			<input type="radio" name="units" value="cm"> cm
 			<input type="radio" name="units" value="in" checked> in
-			<button type="button" id="piece"> Create Cube </button>
-			<button type="button" id="piece2"> Create Cylinder </button>  
+			<button type="button" id="cube"> Create Cube </button>
+			<button type="button" id="cylinder"> Create Cylinder </button>  
 		</form>
 		</div>
 
