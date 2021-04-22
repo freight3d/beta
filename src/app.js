@@ -105,11 +105,11 @@ function create_piece2(){
             {
             geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/78.74,document.getElementsByName("height")[0].value/78.74,document.getElementsByName("length")[0].value/78.74,32);
             } 
-        var cylinder = new THREE.Mesh( geometry, material );				 
-		cylinder.userData = [];
-		scene.add(cylinder);
-		pieces.push(cylinder);	
-		pieces2.push(cylinder);	
+        var cube = new THREE.Mesh( geometry, material );				 
+		cube.userData = [];
+		scene.add(cube);
+		pieces.push(cube);	
+		pieces2.push(cube);	
 		alert(scene.children.length);	
 }	
 	
