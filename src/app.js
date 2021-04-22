@@ -88,7 +88,8 @@ function create_piece(){
 		cube.userData = [];
 		scene.add(cube);
 		pieces.push(cube);	
-		pieces2.push(cube);		
+		pieces2.push(cube);
+		alert(scene.children.length);			
 	});
 }
 
@@ -107,7 +108,8 @@ function create_piece2(){
 		cylinder.userData = [];
 		scene.add(cylinder);
 		pieces.push(cylinder);	
-		pieces2.push(cylinder);		
+		pieces2.push(cylinder);	
+		alert(scene.children.length);	
 }	
 	
 //		
