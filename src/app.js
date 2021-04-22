@@ -67,6 +67,7 @@ function uld(model_name){
 	}, undefined, function ( error ) {
 		console.error( error );
 		});
+	alert(scene.children.length);	
 };
 
 // Create Cube 
