@@ -69,7 +69,7 @@ function uld(model_name){
 		});
 };
 
-//
+// Create Cube 
 function create_piece(){
 	const loaderTexture = new THREE.TextureLoader();
 	loaderTexture.load('images/box.jpg', (texture) => {
@@ -91,6 +91,24 @@ function create_piece(){
 		pieces2.push(cube);		
 	});
 }
+
+// Create Cylinder
+function create_piece2(){
+	const material = new THREE.MeshBasicMaterial({color: 0xffff00});
+        let geometry;
+        if(document.getElementsByName("units")[0].checked){
+			geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/200,document.getElementsByName("height")[0].value/200,document.getElementsByName("length")[0].value/100,32);
+			} 
+            if(document.getElementsByName("units")[1].checked)
+            {
+            geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/78.74,document.getElementsByName("height")[0].value/78.74,document.getElementsByName("length")[0].value/78.74,32);
+            } 
+        var cylinder = new THREE.Mesh( geometry, material );				 
+		cylinder.userData = [];
+		scene.add(cylinder);
+		pieces.push(cylinder);	
+		pieces2.push(cylinder);		
+}	
 	
 //		
 function createUserData(){
