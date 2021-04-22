@@ -34,6 +34,9 @@
 				document.getElementById("cylinder").addEventListener("click", function(){
  				create_piece2();
  				});
+				document.getElementById("cylinder").addEventListener("click", function(){
+ 				clear_pieces();
+ 				}); 
 			};	
 		</script>	
 
@@ -41,7 +44,6 @@
 			<h1><a href="/">Freight 3D Tool</a></h1>
 			<span class="separator layout-md"> | </span>
 			<span class="flex-grow"></span>
-			<button type="button" id="clear" class="item" style="display: none;">&nbsp;&nbsp;&nbsp;Clear Pieces</button>
 			<h2><label for="models"> Choose ULD or Aircraft Main Deck &nbsp </label></h2>
 		  
 			<select name="models" id="models">
@@ -70,8 +72,9 @@
 			<input type="number" name="height" min="0" max="120" value="50">
 			<input type="radio" name="units" value="cm"> cm
 			<input type="radio" name="units" value="in" checked> in
-			<button type="button" id="cube"> Create Cube </button>
-			<button type="button" id="cylinder"> Create Cylinder </button>  
+			<button type="button" id="cube"> Add Cube </button>
+			<button type="button" id="cylinder"> Add Cylinder </button>
+			<button class="button button3" id="clear"> Clear Pieces </button>    
 		</form>
 		</div>
 
