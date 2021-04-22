@@ -27,16 +27,19 @@ var controls = new THREE.OrbitControls( camera, renderer.domElement );
 
 // add event listener to highlight dragged objects
 
-controls2.addEventListener( 'dragstart', function ( event ) {		
+controls2.addEventListener( 'dragstart', function ( event ) {
+		
 	controls.enabled = false;
 } );
 
 controls2.addEventListener( 'dragend', function ( event ) {
+
 	controls.enabled = true;
 } );
 
 //
 function clear_canvas(){
+
 	for(var i = scene.children.length - 1; i >= 0; i--) { 
 		obj = scene.children[i];
 		scene.remove(obj); 
@@ -45,10 +48,12 @@ function clear_canvas(){
 
 //
 function uld(model_name){
+
 	// Instantiate a loader
 	var loader = new THREE.GLTFLoader();		
 	// Load a glTF resource
 	loader.load(model_name, function ( gltf ) {
+
 		scene.add( gltf.scene );
 		obj = scene.children[0];
 		const box = new THREE.Box3().setFromObject(obj);
@@ -64,14 +69,14 @@ function uld(model_name){
 		obj.position.x += (obj.position.x - center.x);
 		obj.position.y += (obj.position.y - center.y);
 		obj.position.z += (obj.position.z - center.z);	
-		
 	}, undefined, function ( error ) {
 		console.error( error );
-		});		
+		});
 };
 
-// Create Cube 
+//
 function create_piece(){
+
 	const loaderTexture = new THREE.TextureLoader();
 	loaderTexture.load('images/box.jpg', (texture) => {
 	const material = new THREE.MeshBasicMaterial({
@@ -85,35 +90,20 @@ function create_piece(){
             {
             geometry = new THREE.BoxGeometry(document.getElementsByName("width")[0].value/39.37,document.getElementsByName("height")[0].value/39.37,document.getElementsByName("length")[0].value/39.37);
             } 
-        var cube = new THREE.Mesh( geometry, material );				 
+            var cube = new THREE.Mesh( geometry, material );
+						 
 		cube.userData = [];
 		scene.add(cube);
 		pieces.push(cube);	
-		pieces2.push(cube);		
+		pieces2.push(cube);
+			
 	});
 }
-
-// Create Cylinder
-function create_piece2(){
-	const material = new THREE.MeshPhongMaterial({color: 0x606060,shininess: 100});
-        let geometry;
-        if(document.getElementsByName("units")[0].checked){
-			geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/200,document.getElementsByName("height")[0].value/200,document.getElementsByName("length")[0].value/100,32);
-			} 
-            if(document.getElementsByName("units")[1].checked)
-            {
-            geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/78.74,document.getElementsByName("height")[0].value/39.37,document.getElementsByName("length")[0].value/78.74,32);
-            } 
-        var cube = new THREE.Mesh( geometry, material );				 
-		cube.userData = [];
-		scene.add(cube);
-		pieces.push(cube);	
-		pieces2.push(cube);	
-}	
 	
 //		
 function createUserData(){
     for(i=0;i<pieces.length;i++){	
+
     	pieces[i].userData = [];
    	}
 }
@@ -122,10 +112,12 @@ function savePos(_mesh) {
 	var collisionBool=false;
 	var collisionBoolAll=false;
 	var collisionPoint;
-	let collisionBoolArray=[];	
+	let collisionBoolArray=[];
+		
 	var originPoint = _mesh.position.clone();
 
-    for (var vertexIndex = 0; vertexIndex < _mesh.geometry.vertices.length; vertexIndex++) {     
+    for (var vertexIndex = 0; vertexIndex < _mesh.geometry.vertices.length; vertexIndex++) {
+            
         var localVertex = _mesh.geometry.vertices[vertexIndex].clone();       
         var globalVertex = localVertex.applyMatrix4(_mesh.matrix);
         var directionVector = globalVertex.sub(_mesh.position);
@@ -133,9 +125,11 @@ function savePos(_mesh) {
         var collisionResults = ray.intersectObjects(collisionMesh);
 
         if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
+          
             collisionBool=true;
             collisionBoolArray.push(collisionBool);
-            collisionPoint=collisionResults[0].point;  
+            collisionPoint=collisionResults[0].point;
+             
             controls2.enabled=false;    
         }
         else{
@@ -168,10 +162,12 @@ function checkCollision2(_mesh) {
 	var collisionBool=false;
 	var collisionBoolAll=false;
 	var collisionPoint;
-	let collisionBoolArray=[];	
+	let collisionBoolArray=[];
+		
     var originPoint = _mesh.position.clone();
 
-    for (var vertexIndex = 0; vertexIndex < _mesh.geometry.vertices.length; vertexIndex++) {    
+    for (var vertexIndex = 0; vertexIndex < _mesh.geometry.vertices.length; vertexIndex++) {
+            
         var localVertex = _mesh.geometry.vertices[vertexIndex].clone();    
         var globalVertex = localVertex.applyMatrix4(_mesh.matrix);
         var directionVector = globalVertex.sub(_mesh.position);
@@ -183,7 +179,8 @@ function checkCollision2(_mesh) {
             collisionBool=true;
             collisionBoolArray.push(collisionBool);
             collisionPoint=collisionResults[0].point;   
-            controls2.enabled=false;   
+            controls2.enabled=false;
+           
         }
         else{
         	controls2.enabled=true;
@@ -208,10 +205,12 @@ function checkCollision2(_mesh) {
 var animate = function (){
 	requestAnimationFrame(animate);
 	renderer.render(scene,camera);
-	controls.update();			   
+	controls.update();
+				   
 	var collvar;
 	for(var i=1;i<pieces.length;i++){	
-		savePos(pieces[i]);	   		
+		savePos(pieces[i]);
+			   		
 		_mesh = pieces[i];
 	};
 };
