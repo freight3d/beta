@@ -47,6 +47,15 @@ function clear_canvas(){
 }
 
 //
+function clear_pieces(){
+
+	for(var i = 4; i <= scene.children.length; i++) { 
+		obj = scene.children[i];
+		scene.remove(obj); 
+   }
+}
+
+//
 function uld(model_name){
 
 	// Instantiate a loader
