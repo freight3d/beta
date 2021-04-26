@@ -53,10 +53,7 @@ function clear_pieces(){
 	if(i >= 3){
 		obj = scene.children[i];
 		scene.remove(obj);
-	} 
-   	alert(i);
-	alert(scene.children.length);
-	alert(scene.children[i]);
+	}    	
 }
 
 //
@@ -83,7 +80,6 @@ function uld(model_name){
 		obj.position.y += (obj.position.y - center.y);
 		obj.position.z += (obj.position.z - center.z);
 		
-		alert(scene.children.length);
 	}, undefined, function ( error ) {
 		console.error( error );
 		});
@@ -111,8 +107,6 @@ function create_piece(){
 		scene.add(cube);
 		pieces.push(cube);	
 		pieces2.push(cube);
-		
-		alert(scene.children.length);
 	});
 }
 	
