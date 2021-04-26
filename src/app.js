@@ -54,9 +54,6 @@ function clear_pieces(){
 		obj = scene.children[i];
 		scene.remove(obj);
 	}
-	alert(i);
-	alert(scene.children.length);
-	alert(obj);
 }
 
 //
