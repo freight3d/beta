@@ -44,8 +44,6 @@ function clear_canvas(){
 		obj = scene.children[i];
 		scene.remove(obj); 
    }
-alert(i);
-alert(scene.children.length);	
 }
 
 //
@@ -55,7 +53,10 @@ function clear_pieces(){
 	if(i > 3){
 		obj = scene.children[i];
 		scene.remove(obj);
-	}    	
+	}
+	alert(i);
+	alert(scene.children.length);
+	alert(obj);
 }
 
 //
