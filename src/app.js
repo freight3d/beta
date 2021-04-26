@@ -49,13 +49,11 @@ function clear_canvas(){
 //
 function clear_pieces(){
 
-	for(var i = scene.children.length; i > 0; i--) { 
-		
-		if(i > 3){
+	var i = scene.children.length;
+	if(i >= 3){
 		obj = scene.children[i];
 		scene.remove(obj);
-		} 
-   }
+	} 
    alert(scene.children.length);
 }
 
