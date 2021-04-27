@@ -63,7 +63,7 @@ canvas {
 }
 .button3 {
   color: black; 
-  border: 2px solid #f44336;
+  border: 1px solid #f44336;
   border-radius: 4px;
 }
 
@@ -74,7 +74,7 @@ canvas {
 
 .button4 {
   color: black;
-  border: 2px solid #797979;
+  border: 1px solid #797979;
   border-radius: 4px;
 }
 
