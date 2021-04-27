@@ -53,7 +53,7 @@ function clear_pieces(){
 	if(i >= 3){
 		obj = scene.children[i];
 		scene.remove(obj);
-	}
+	} 
 }
 
 //
@@ -79,7 +79,7 @@ function uld(model_name){
 		obj.position.x += (obj.position.x - center.x);
 		obj.position.y += (obj.position.y - center.y);
 		obj.position.z += (obj.position.z - center.z);
-		
+	
 	}, undefined, function ( error ) {
 		console.error( error );
 		});
@@ -107,8 +107,28 @@ function create_piece(){
 		scene.add(cube);
 		pieces.push(cube);	
 		pieces2.push(cube);
+		
+		//alert(scene.children.length);
 	});
 }
+
+// Create Cylinder
+function create_piece2(){
+	const material = new THREE.MeshPhongMaterial({color: 0x606060,shininess: 100});
+        let geometry;
+        if(document.getElementsByName("units")[0].checked){
+			geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/200,document.getElementsByName("height")[0].value/200,document.getElementsByName("length")[0].value/100,32);
+			} 
+            if(document.getElementsByName("units")[1].checked)
+            {
+            geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/78.74,document.getElementsByName("height")[0].value/39.37,document.getElementsByName("length")[0].value/78.74,32);
+            } 
+        var cube = new THREE.Mesh( geometry, material );				 
+		cube.userData = [];
+		scene.add(cube);
+		pieces.push(cube);	
+		pieces2.push(cube);	
+}	
 	
 //		
 function createUserData(){
