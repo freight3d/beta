@@ -78,7 +78,10 @@ canvas {
   border-radius: 4px;
 }
 
-.button4:hover {background-color: #e7e7e7;}
+.button4:hover {
+  background-color: #000000;
+  color: white;
+}
 
 .wrap {
   display: flex;
