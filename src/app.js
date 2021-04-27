@@ -123,7 +123,8 @@ function create_piece2(){
             {
             geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/78.74,document.getElementsByName("width")[0].value/78.74,document.getElementsByName("length")[0].value/39.37,32);
             } 
-        var cube = new THREE.Mesh( geometry, material );				 
+        var cube = new THREE.Mesh( geometry, material );	
+		cube.rotateX( Math.PI / 2 );			 
 		cube.userData = [];
 		scene.add(cube);
 		pieces.push(cube);	
