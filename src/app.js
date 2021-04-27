@@ -117,11 +117,11 @@ function create_piece2(){
 	const material = new THREE.MeshPhongMaterial({color: 0x606060,shininess: 100});
         let geometry;
         if(document.getElementsByName("units")[0].checked){
-			geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/200,document.getElementsByName("height")[0].value/200,document.getElementsByName("length")[0].value/100,32);
+			geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/200,document.getElementsByName("width")[0].value/200,document.getElementsByName("length")[0].value/100,32);
 			} 
             if(document.getElementsByName("units")[1].checked)
             {
-            geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/78.74,document.getElementsByName("height")[0].value/39.37,document.getElementsByName("length")[0].value/78.74,32);
+            geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/78.74,document.getElementsByName("width")[0].value/78.74,document.getElementsByName("length")[0].value/39.37,32);
             } 
         var cube = new THREE.Mesh( geometry, material );				 
 		cube.userData = [];
