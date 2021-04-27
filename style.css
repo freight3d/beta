@@ -42,7 +42,7 @@ canvas {
 
 .button1 {
   color: black; 
-  border: 2px solid #4CAF50;
+  border: 1px solid #4CAF50;
   border-radius: 4px;
 }
 
@@ -53,7 +53,7 @@ canvas {
 
 .button2 {
   color: black; 
-  border: 2px solid #008CBA;
+  border: 1px solid #008CBA;
   border-radius: 4px;
 }
 
