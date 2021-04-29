@@ -114,7 +114,7 @@ function create_piece(){
 
 // Create Cylinder
 function create_piece2(){
-	const material = new THREE.MeshPhongMaterial({color: 0x606060,shininess: 100});
+	const material = new THREE.MeshPhongMaterial({color: 0x797979,shininess: 100});
         let geometry;
         if(document.getElementsByName("units")[0].checked){
 			geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/200,document.getElementsByName("width")[0].value/200,document.getElementsByName("length")[0].value/100,32);
@@ -132,12 +132,12 @@ function create_piece2(){
 }	
 	
 //		
-function createUserData(){
-    for(i=0;i<pieces.length;i++){	
-
-    	pieces[i].userData = [];
-   	}
-}
+//function createUserData(){
+//    for(i=0;i<pieces.length;i++){	
+//
+//    	pieces[i].userData = [];
+//   	}
+//}
 
 
 
@@ -188,7 +188,7 @@ function checkCollision2(_mesh) {
 var animate = function (){
 	requestAnimationFrame(animate);
 	renderer.render(scene,camera);
-	//controls.update();
+	controls.update();
 	controls.enabled=true;
 	controls2.enabled=true;		
 				   
