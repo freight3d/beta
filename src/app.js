@@ -188,7 +188,9 @@ function checkCollision2(_mesh) {
 var animate = function (){
 	requestAnimationFrame(animate);
 	renderer.render(scene,camera);
-	controls.update();
+	//controls.update();
+	controls.enabled=true;
+	controls2.enabled=true;		
 				   
 	var collvar;
 	for(var i=1;i<pieces.length;i++){	
