@@ -38,15 +38,15 @@
     {
       "pbrMetallicRoughness": {
         "baseColorFactor": [
-          0.0,
-          0.0,
-          0.1332,
+          0.7227,
+          0.0037,
+          0.0415,
           1.0
         ],
         "metallicFactor": 0.1,
         "roughnessFactor": 0.9
       },
-      "name": "Color I08"
+      "name": "0019_Crimson"
     },
     {
       "pbrMetallicRoughness": {
