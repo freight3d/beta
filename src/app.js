@@ -192,7 +192,7 @@ var animate = function (){
 				   
 	var collvar;
 	for(var i=1;i<pieces.length;i++){	
-		savePos(pieces[i]);
+		//savePos(pieces[i]);
 			   		
 		_mesh = pieces[i];
 	};
