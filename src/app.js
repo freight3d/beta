@@ -131,13 +131,6 @@ function create_piece2(){
 		pieces2.push(cube);	
 }	
 	
-//		
-//function createUserData(){
-//    for(i=0;i<pieces.length;i++){	
-//
-//    	pieces[i].userData = [];
-//   	}
-//}
 
 function savePos(_mesh) {
 	var collisionBool=false;
