@@ -89,7 +89,7 @@ function uld(model_name){
 function create_piece(){
 
 	const loaderTexture = new THREE.TextureLoader();
-	loaderTexture.load('images/box.jpg', (texture) => {
+	loaderTexture.load('images/metal.jpg', (texture) => {
 	const material = new THREE.MeshBasicMaterial({
 		map: texture,
 		});
@@ -114,12 +114,12 @@ function create_piece(){
 
 // Create Cylinder
 function create_piece2(){
-	const loaderTexture = new THREE.TextureLoader();
-	loaderTexture.load('images/metal.jpg', (texture) => {
-	const material = new THREE.MeshBasicMaterial({
-		map: texture,
-		});
-	//const material = new THREE.MeshPhongMaterial({color: 0x797979,shininess: 100});
+	//const loaderTexture = new THREE.TextureLoader();
+	//loaderTexture.load('images/metal.jpg', (texture) => {
+	//const material = new THREE.MeshBasicMaterial({
+	//	map: texture,
+	//	});
+	const material = new THREE.MeshPhongMaterial({color: 0x797979,shininess: 100});
         let geometry;
         if(document.getElementsByName("units")[0].checked){
 			geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/200,document.getElementsByName("width")[0].value/200,document.getElementsByName("length")[0].value/100,32);
