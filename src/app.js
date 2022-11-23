@@ -119,7 +119,7 @@ function create_piece2(){
 	//const material = new THREE.MeshBasicMaterial({
 	//	map: texture,
 	//	});
-	const material = new THREE.MeshPhongMaterial({color: 0x797979,shininess: 100});
+	const material = new THREE.MeshPhongMaterial({color: 0xFFD966,shininess: 100});
         let geometry;
         if(document.getElementsByName("units")[0].checked){
 			geometry = new THREE.CylinderGeometry(document.getElementsByName("width")[0].value/200,document.getElementsByName("width")[0].value/200,document.getElementsByName("length")[0].value/100,32);
