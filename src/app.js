@@ -1,6 +1,16 @@
-// Gravity constant
-const GRAVITY = -9.8; // m/s², downward force
-const groundLevel = -5; // Define the ground level where objects stop
+// Include Cannon.js library via script tag before the script execution:
+// <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"></script>
+
+// Create a physics world
+const world = new CANNON.World();
+world.gravity.set(0, -9.82, 0); // Gravity is in m/s², in the Y-axis direction (down)
+
+// Time step for physics simulation
+const timeStep = 1 / 60;
+
+// Initialize arrays to hold the Three.js meshes and their corresponding Cannon.js bodies
+const meshes = [];
+const bodies = [];
 
 // Cache window and container size
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -21,161 +31,97 @@ renderer.setSize(container.offsetWidth, container.offsetHeight);
 document.body.appendChild(container);
 container.appendChild(renderer.domElement);
 
-const collisionMesh = [];
-const pieces = [];
-const pieces2 = [];
-
-// Add velocity property for each piece to calculate gravity effect
-pieces.forEach(piece => piece.velocity = new THREE.Vector3(0, 0, 0));
-
-// Object-specific gravity enable/disable control
-pieces.forEach(piece => piece.isGravityEnabled = true);
-
 const controls2 = new THREE.DragControls(pieces2, camera, renderer.domElement);
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-// Disable gravity when an object is being dragged
 controls2.addEventListener('dragstart', (event) => {
     controls.enabled = false;
-    event.object.isGravityEnabled = false; // Disable gravity while dragging
+    event.object.userData.body.sleep(); // Disable physics while dragging
 });
 
-// Re-enable gravity when an object is no longer being dragged
 controls2.addEventListener('dragend', (event) => {
     controls.enabled = true;
-    event.object.isGravityEnabled = true; // Re-enable gravity after dragging
+    event.object.userData.body.wakeUp(); // Re-enable physics after dragging
 });
 
-function clear_canvas() {
-    while (scene.children.length > 0) {
-        scene.remove(scene.children[0]);
-    }
+// Create the floor (ground)
+const groundShape = new CANNON.Plane();
+const groundBody = new CANNON.Body({ mass: 0 }); // Static body (mass = 0)
+groundBody.addShape(groundShape);
+groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0); // Rotate to make it horizontal
+world.addBody(groundBody);
+
+// Create a Three.js plane for the ground
+const groundMaterial = new THREE.MeshStandardMaterial({ color: 0xcccccc });
+const groundMesh = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), groundMaterial);
+groundMesh.rotation.x = -Math.PI / 2;
+scene.add(groundMesh);
+
+// Function to create a physics-enabled piece
+function createPhysicsPiece(geometry, mass, position) {
+    const material = new THREE.MeshStandardMaterial({ color: 0xFF5733 });
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.copy(position);
+    scene.add(mesh);
+
+    const shape = new CANNON.Box(new CANNON.Vec3(geometry.parameters.width / 2, geometry.parameters.height / 2, geometry.parameters.depth / 2));
+    const body = new CANNON.Body({ mass: mass });
+    body.addShape(shape);
+    body.position.copy(mesh.position);
+    world.addBody(body);
+
+    // Link Three.js mesh and Cannon.js body
+    mesh.userData.body = body;
+    meshes.push(mesh);
+    bodies.push(body);
 }
 
-function clear_pieces() {
-    const i = scene.children.length - 1;
-    if (i >= 3) {
-        scene.remove(scene.children[i]);
-    }
-}
-
-function uld(model_name) {
-    const loader = new THREE.GLTFLoader();
-    loader.load(model_name, (gltf) => {
-        const obj = gltf.scene;
-        scene.add(obj);
-
-        const box = new THREE.Box3().setFromObject(obj);
-        const center = box.getCenter(new THREE.Vector3());
-
-        const light = new THREE.HemisphereLight(0xffffff, 0x43399d, 1);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.4);
-        directionalLight.position.set(2, 2, 2);
-        scene.add(light, directionalLight);
-
-        obj.position.sub(center);  // Adjust position
-    }, undefined, (error) => console.error(error));
-}
-
+// Create a cube (box geometry with physics)
 function create_piece() {
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.load('images/metal.jpg', (texture) => {
-        const isMetric = document.getElementsByName("units")[0].checked;
-        const factor = isMetric ? 100 : 39.37;
-        const geometry = new THREE.BoxGeometry(
-            document.getElementsByName("width")[0].value / factor,
-            document.getElementsByName("height")[0].value / factor,
-            document.getElementsByName("length")[0].value / factor
-        );
-        const material = new THREE.MeshBasicMaterial({ map: texture });
-        const cube = new THREE.Mesh(geometry, material);
+    const isMetric = document.getElementsByName("units")[0].checked;
+    const factor = isMetric ? 100 : 39.37;
 
-        // Initialize velocity and gravity flag for gravity
-        cube.velocity = new THREE.Vector3(0, 0, 0);
-        cube.isGravityEnabled = true;
+    const width = document.getElementsByName("width")[0].value / factor;
+    const height = document.getElementsByName("height")[0].value / factor;
+    const depth = document.getElementsByName("length")[0].value / factor;
 
-        scene.add(cube);
-        pieces.push(cube);
-        pieces2.push(cube);
-    });
+    const geometry = new THREE.BoxGeometry(width, height, depth);
+    const mass = 1; // Mass of the object
+    const position = new THREE.Vector3(0, 5, 0); // Starting position
+
+    createPhysicsPiece(geometry, mass, position);
 }
 
+// Function to create a cylinder with physics
 function create_piece2() {
     const isMetric = document.getElementsByName("units")[0].checked;
-    const factor = isMetric ? 200 : 78.74;
-    const geometry = new THREE.CylinderGeometry(
-        document.getElementsByName("width")[0].value / factor,
-        document.getElementsByName("width")[0].value / factor,
-        document.getElementsByName("length")[0].value / factor,
-        32
-    );
-    const material = new THREE.MeshPhongMaterial({ color: 0xFFD966, shininess: 100 });
-    const cylinder = new THREE.Mesh(geometry, material);
+    const factor = isMetric ? 100 : 39.37;
 
-    cylinder.rotateX(Math.PI / 2);
+    const radius = document.getElementsByName("width")[0].value / factor;
+    const height = document.getElementsByName("length")[0].value / factor;
 
-    // Initialize velocity and gravity flag for gravity
-    cylinder.velocity = new THREE.Vector3(0, 0, 0);
-    cylinder.isGravityEnabled = true;
+    const geometry = new THREE.CylinderGeometry(radius, radius, height, 32);
+    const mass = 1; // Mass of the object
+    const position = new THREE.Vector3(0, 5, 0); // Starting position
 
-    scene.add(cylinder);
-    pieces.push(cylinder);
-    pieces2.push(cylinder);
+    createPhysicsPiece(geometry, mass, position);
 }
 
-function saveOrCheckCollision(mesh, isSaving = true) {
-    const collisionBoolArray = [];
-    let collisionBoolAll = false;
-    const originPoint = mesh.position.clone();
-
-    const vertices = mesh.geometry.vertices || []; // Fallback for non-Buffer geometries
-    for (const localVertex of vertices) {
-        const globalVertex = localVertex.clone().applyMatrix4(mesh.matrix);
-        const directionVector = globalVertex.sub(mesh.position);
-        const ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize());
-        const collisionResults = ray.intersectObjects(collisionMesh);
-
-        const collision = collisionResults.length > 0 && collisionResults[0].distance < directionVector.length();
-        collisionBoolArray.push(collision);
-    }
-
-    collisionBoolAll = collisionBoolArray.some(collision => collision);
-    if (isSaving) {
-        mesh.userData.push([mesh.position.clone(), collisionBoolAll, collisionBoolArray]);
-        if (mesh.userData.length > 50) mesh.userData.shift();
-    }
-
-    return [collisionBoolAll, collisionBoolArray];
-}
-
-// Update position based on velocity and gravity
-function applyGravity(mesh, deltaTime) {
-    if (!mesh.isGravityEnabled) return; // Skip gravity if disabled (when dragging)
-
-    // Apply gravity to the object's velocity (along Y-axis)
-    mesh.velocity.y += GRAVITY * deltaTime;
-
-    // Update position based on velocity
-    mesh.position.add(mesh.velocity.clone().multiplyScalar(deltaTime));
-
-    // Stop falling when it reaches the ground
-    if (mesh.position.y < groundLevel) {
-        mesh.position.y = groundLevel;
-        mesh.velocity.y = 0; // Stop the vertical motion upon collision with the ground
-    }
-}
-
+// Update physics and render
 function animate() {
-    const deltaTime = 0.016; // Approximate time between frames (~60fps)
-
     requestAnimationFrame(animate);
+
+    // Step the physics world
+    world.step(timeStep);
+
+    // Update positions of Three.js meshes based on Cannon.js bodies
+    meshes.forEach((mesh) => {
+        mesh.position.copy(mesh.userData.body.position);
+        mesh.quaternion.copy(mesh.userData.body.quaternion);
+    });
+
     renderer.render(scene, camera);
     controls.update();
-
-    pieces.forEach(piece => {
-        saveOrCheckCollision(piece);
-        applyGravity(piece, deltaTime); // Apply gravity on each piece
-    });
 }
 
 animate();
