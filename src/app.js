@@ -1,19 +1,37 @@
-// Include Cannon.js library via script tag before the script execution:
-// <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cannon@0.6.2/build/cannon.min.js"></script>
 
-// Create a physics world
+// Import Cannon.js
 const world = new CANNON.World();
-world.gravity.set(0, -9.82, 0); // Gravity is in m/s², in the Y-axis direction (down)
+world.gravity.set(0, -9.82, 0);  // Set gravity along Y-axis
+world.broadphase = new CANNON.NaiveBroadphase();
+world.solver.iterations = 10;
 
-// Time step for physics simulation
-const timeStep = 1 / 60;
+// Create the physics material for objects
+const groundMaterial = new CANNON.Material("groundMaterial");
+const pieceMaterial = new CANNON.Material("pieceMaterial");
 
-// Initialize arrays to hold the Three.js meshes and their corresponding Cannon.js bodies
-const meshes = [];
-const bodies = [];
+// Setup collision response between the materials
+const groundPieceContact = new CANNON.ContactMaterial(groundMaterial, pieceMaterial, {
+    friction: 0.4,
+    restitution: 0.6,
+});
+world.addContactMaterial(groundPieceContact);
+
+// Setup the ground plane (invisible, but acts as a floor)
+const groundBody = new CANNON.Body({
+    mass: 0,  // Ground should be static
+    material: groundMaterial,
+});
+const groundShape = new CANNON.Plane();
+groundBody.addShape(groundShape);
+groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);  // Rotate to be flat
+world.addBody(groundBody);
+
+// Array to store physics bodies
+const pieceBodies = [];
 
 // Cache window and container size
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+const renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.physicallyCorrectLights = true;
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.setClearColor(0xcccccc);
@@ -31,93 +49,124 @@ renderer.setSize(container.offsetWidth, container.offsetHeight);
 document.body.appendChild(container);
 container.appendChild(renderer.domElement);
 
+const collisionMesh = [];
+const pieces = [];
+const pieces2 = [];
+
 const controls2 = new THREE.DragControls(pieces2, camera, renderer.domElement);
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-controls2.addEventListener('dragstart', (event) => {
-    controls.enabled = false;
-    event.object.userData.body.sleep(); // Disable physics while dragging
-});
+controls2.addEventListener('dragstart', () => controls.enabled = false);
+controls2.addEventListener('dragend', () => controls.enabled = true);
 
-controls2.addEventListener('dragend', (event) => {
-    controls.enabled = true;
-    event.object.userData.body.wakeUp(); // Re-enable physics after dragging
-});
+function clear_canvas() {
+    while (scene.children.length > 0) {
+        scene.remove(scene.children[0]);
+    }
+}
 
-// Create the floor (ground)
-const groundShape = new CANNON.Plane();
-const groundBody = new CANNON.Body({ mass: 0 }); // Static body (mass = 0)
-groundBody.addShape(groundShape);
-groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0); // Rotate to make it horizontal
-world.addBody(groundBody);
+function clear_pieces() {
+    const i = scene.children.length - 1;
+    if (i >= 3) {
+        scene.remove(scene.children[i]);
+    }
+}
 
-// Create a Three.js plane for the ground
-const groundMaterial = new THREE.MeshStandardMaterial({ color: 0xcccccc });
-const groundMesh = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), groundMaterial);
-groundMesh.rotation.x = -Math.PI / 2;
-scene.add(groundMesh);
-
-// Function to create a physics-enabled piece
-function createPhysicsPiece(geometry, mass, position) {
-    const material = new THREE.MeshStandardMaterial({ color: 0xFF5733 });
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.copy(position);
-    scene.add(mesh);
-
+// Function to add physics to a Three.js mesh
+function addPhysicsToPiece(geometry, position, mass) {
     const shape = new CANNON.Box(new CANNON.Vec3(geometry.parameters.width / 2, geometry.parameters.height / 2, geometry.parameters.depth / 2));
-    const body = new CANNON.Body({ mass: mass });
-    body.addShape(shape);
-    body.position.copy(mesh.position);
+
+    const body = new CANNON.Body({
+        mass: mass,
+        position: new CANNON.Vec3(position.x, position.y, position.z),
+        shape: shape,
+        material: pieceMaterial
+    });
+
     world.addBody(body);
+    pieceBodies.push(body);
 
-    // Link Three.js mesh and Cannon.js body
-    mesh.userData.body = body;
-    meshes.push(mesh);
-    bodies.push(body);
+    return body;
 }
 
-// Create a cube (box geometry with physics)
+function uld(model_name) {
+    const loader = new THREE.GLTFLoader();
+    loader.load(model_name, (gltf) => {
+        const obj = gltf.scene;
+        scene.add(obj);
+
+        const box = new THREE.Box3().setFromObject(obj);
+        const center = box.getCenter(new THREE.Vector3());
+        
+        const light = new THREE.HemisphereLight(0xffffff, 0x43399d, 1);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.4);
+        directionalLight.position.set(2, 2, 2);
+        scene.add(light, directionalLight);
+
+        obj.position.sub(center);  // Adjust position
+    }, undefined, (error) => console.error(error));
+}
+
 function create_piece() {
-    const isMetric = document.getElementsByName("units")[0].checked;
-    const factor = isMetric ? 100 : 39.37;
+    const textureLoader = new THREE.TextureLoader();
+    textureLoader.load('images/metal.jpg', (texture) => {
+        const isMetric = document.getElementsByName("units")[0].checked;
+        const factor = isMetric ? 100 : 39.37;
+        const geometry = new THREE.BoxGeometry(
+            document.getElementsByName("width")[0].value / factor,
+            document.getElementsByName("height")[0].value / factor,
+            document.getElementsByName("length")[0].value / factor
+        );
+        const material = new THREE.MeshBasicMaterial({map: texture});
+        const cube = new THREE.Mesh(geometry, material);
 
-    const width = document.getElementsByName("width")[0].value / factor;
-    const height = document.getElementsByName("height")[0].value / factor;
-    const depth = document.getElementsByName("length")[0].value / factor;
+        scene.add(cube);
+        pieces.push(cube);
+        pieces2.push(cube);
 
-    const geometry = new THREE.BoxGeometry(width, height, depth);
-    const mass = 1; // Mass of the object
-    const position = new THREE.Vector3(0, 5, 0); // Starting position
-
-    createPhysicsPiece(geometry, mass, position);
+        // Add physics
+        const position = cube.position.clone();
+        const body = addPhysicsToPiece(geometry, position, 1);  // Set mass to 1 for dynamic object
+        cube.userData.physicsBody = body;
+    });
 }
 
-// Function to create a cylinder with physics
 function create_piece2() {
     const isMetric = document.getElementsByName("units")[0].checked;
-    const factor = isMetric ? 100 : 39.37;
+    const factor = isMetric ? 200 : 78.74;
+    const geometry = new THREE.CylinderGeometry(
+        document.getElementsByName("width")[0].value / factor,
+        document.getElementsByName("width")[0].value / factor,
+        document.getElementsByName("length")[0].value / factor,
+        32
+    );
+    const material = new THREE.MeshPhongMaterial({color: 0xFFD966, shininess: 100});
+    const cylinder = new THREE.Mesh(geometry, material);
 
-    const radius = document.getElementsByName("width")[0].value / factor;
-    const height = document.getElementsByName("length")[0].value / factor;
+    cylinder.rotateX(Math.PI / 2);
+    scene.add(cylinder);
+    pieces.push(cylinder);
+    pieces2.push(cylinder);
 
-    const geometry = new THREE.CylinderGeometry(radius, radius, height, 32);
-    const mass = 1; // Mass of the object
-    const position = new THREE.Vector3(0, 5, 0); // Starting position
-
-    createPhysicsPiece(geometry, mass, position);
+    // Add physics
+    const position = cylinder.position.clone();
+    const body = addPhysicsToPiece(geometry, position, 1);  // Set mass to 1 for dynamic object
+    cylinder.userData.physicsBody = body;
 }
 
-// Update physics and render
 function animate() {
     requestAnimationFrame(animate);
 
-    // Step the physics world
-    world.step(timeStep);
+    // Step physics simulation forward
+    world.step(1 / 60);
 
-    // Update positions of Three.js meshes based on Cannon.js bodies
-    meshes.forEach((mesh) => {
-        mesh.position.copy(mesh.userData.body.position);
-        mesh.quaternion.copy(mesh.userData.body.quaternion);
+    // Update Three.js mesh positions based on Cannon.js bodies
+    pieces.forEach((piece) => {
+        const body = piece.userData.physicsBody;
+        if (body) {
+            piece.position.copy(body.position);
+            piece.quaternion.copy(body.quaternion);
+        }
     });
 
     renderer.render(scene, camera);
@@ -125,3 +174,5 @@ function animate() {
 }
 
 animate();
+
+
