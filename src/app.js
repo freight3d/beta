@@ -19,6 +19,12 @@ container.appendChild(renderer.domElement);
 const GRAVITY = -9.8;  // gravity constant (m/s^2)
 const deltaTime = 0.016; // approximate time between frames (60fps = 1/60 = 0.016s)
 
+const groundGeometry = new THREE.PlaneGeometry(100, 100);
+const groundMaterial = new THREE.MeshBasicMaterial({ color: 0x888888 });
+const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+ground.rotation.x = - Math.PI / 2;  // Rotate to make it a floor
+scene.add(ground);
+
 // Initialize velocities for pieces
 pieces.forEach(piece => {
     piece.velocity = new THREE.Vector3(0, 0, 0);  // velocity in (x, y, z)
