@@ -28,11 +28,23 @@ const pieces2 = [];
 // Add velocity property for each piece to calculate gravity effect
 pieces.forEach(piece => piece.velocity = new THREE.Vector3(0, 0, 0));
 
+// Object-specific gravity enable/disable control
+pieces.forEach(piece => piece.isGravityEnabled = true);
+
 const controls2 = new THREE.DragControls(pieces2, camera, renderer.domElement);
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-controls2.addEventListener('dragstart', () => controls.enabled = false);
-controls2.addEventListener('dragend', () => controls.enabled = true);
+// Disable gravity when an object is being dragged
+controls2.addEventListener('dragstart', (event) => {
+    controls.enabled = false;
+    event.object.isGravityEnabled = false; // Disable gravity while dragging
+});
+
+// Re-enable gravity when an object is no longer being dragged
+controls2.addEventListener('dragend', (event) => {
+    controls.enabled = true;
+    event.object.isGravityEnabled = true; // Re-enable gravity after dragging
+});
 
 function clear_canvas() {
     while (scene.children.length > 0) {
@@ -78,8 +90,9 @@ function create_piece() {
         const material = new THREE.MeshBasicMaterial({ map: texture });
         const cube = new THREE.Mesh(geometry, material);
 
-        // Initialize velocity for gravity
+        // Initialize velocity and gravity flag for gravity
         cube.velocity = new THREE.Vector3(0, 0, 0);
+        cube.isGravityEnabled = true;
 
         scene.add(cube);
         pieces.push(cube);
@@ -101,8 +114,9 @@ function create_piece2() {
 
     cylinder.rotateX(Math.PI / 2);
 
-    // Initialize velocity for gravity
+    // Initialize velocity and gravity flag for gravity
     cylinder.velocity = new THREE.Vector3(0, 0, 0);
+    cylinder.isGravityEnabled = true;
 
     scene.add(cylinder);
     pieces.push(cylinder);
@@ -136,6 +150,8 @@ function saveOrCheckCollision(mesh, isSaving = true) {
 
 // Update position based on velocity and gravity
 function applyGravity(mesh, deltaTime) {
+    if (!mesh.isGravityEnabled) return; // Skip gravity if disabled (when dragging)
+
     // Apply gravity to the object's velocity (along Y-axis)
     mesh.velocity.y += GRAVITY * deltaTime;
 
@@ -163,4 +179,3 @@ function animate() {
 }
 
 animate();
-
