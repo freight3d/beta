@@ -1,5 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/cannon@0.6.2/build/cannon.min.js"></script>
-
 // Import Cannon.js
 const world = new CANNON.World();
 world.gravity.set(0, -9.82, 0);  // Set gravity along Y-axis
