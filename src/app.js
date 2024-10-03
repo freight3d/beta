@@ -1,134 +1,222 @@
-// Cache window and container size
-const renderer = new THREE.WebGLRenderer({antialias: true});
+const renderer =  new THREE.WebGLRenderer({antialias: true});
 renderer.physicallyCorrectLights = true;
 renderer.outputEncoding = THREE.sRGBEncoding;
-renderer.setClearColor(0xcccccc);
-renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setClearColor( 0xcccccc );
+renderer.setPixelRatio( window.devicePixelRatio );
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xf5f5f5);
 scene.fog = new THREE.Fog(0xc0830, 0, 100);
 
-const camera = new THREE.PerspectiveCamera(25, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(1, 1, 12);
+const camera = new THREE.PerspectiveCamera( 25, window.innerWidth/window.innerHeight, 0.1, 1000 );
+camera.position.set( 1, 1, 12 );
 
-const container = document.getElementById('frame');
+container = document.getElementById('frame');
 renderer.setSize(container.offsetWidth, container.offsetHeight);
-document.body.appendChild(container);
+document.body.appendChild( container );
 container.appendChild(renderer.domElement);
 
-const collisionMesh = [];
-const pieces = [];
-const pieces2 = [];
+//object array
+var collisionMesh = [];
+var pieces=[];
+var pieces2=[];
 
-const controls2 = new THREE.DragControls(pieces2, camera, renderer.domElement);
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
+//CONTROLS
+var controls2 = new THREE.DragControls( pieces2, camera, renderer.domElement );
+var controls = new THREE.OrbitControls( camera, renderer.domElement );	
 
-controls2.addEventListener('dragstart', () => controls.enabled = false);
-controls2.addEventListener('dragend', () => controls.enabled = true);
+// add event listener to highlight dragged objects
 
-function clear_canvas() {
-    while (scene.children.length > 0) {
-        scene.remove(scene.children[0]);
-    }
+controls2.addEventListener( 'dragstart', function ( event ) {
+		
+	controls.enabled = false;
+} );
+
+controls2.addEventListener( 'dragend', function ( event ) {
+
+	controls.enabled = true;
+} );
+
+//
+function clear_canvas(){
+
+	for(var i = scene.children.length - 1; i >= 0; i--) { 
+		obj = scene.children[i];
+		scene.remove(obj); 
+   }
 }
 
-function clear_pieces() {
-    const i = scene.children.length - 1;
-    if (i >= 3) {
-        scene.remove(scene.children[i]);
-    }
+//
+function clear_pieces(){
+
+	var i = scene.children.length - 1;
+	if(i >= 3){
+		obj = scene.children[i];
+		scene.remove(obj);
+	} 
 }
 
-function uld(model_name) {
-    const loader = new THREE.GLTFLoader();
-    loader.load(model_name, (gltf) => {
-        const obj = gltf.scene;
-        scene.add(obj);
+//
+function uld(model_name){
 
-        const box = new THREE.Box3().setFromObject(obj);
-        const center = box.getCenter(new THREE.Vector3());
+	// Instantiate a loader
+	var loader = new THREE.GLTFLoader();		
+	// Load a glTF resource
+	loader.load(model_name, function ( gltf ) {
+
+		scene.add( gltf.scene );
+		obj = scene.children[0];
+		const box = new THREE.Box3().setFromObject(obj);
+		const size = box.getSize(new THREE.Vector3()).length();
+		const center = box.getCenter(new THREE.Vector3());
+		// Light parameters
+		const light = new THREE.HemisphereLight(0xffffff, 0x43399d, 1);
+		scene.add( light );
+		const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.4 );
+		directionalLight.position.set( 2, 2, 2);
+		scene.add( directionalLight );	
+
+		obj.position.x += (obj.position.x - center.x);
+		obj.position.y += (obj.position.y - center.y);
+		obj.position.z += (obj.position.z - center.z);	
+	}, undefined, function ( error ) {
+		console.error( error );
+		});
+};
+
+//
+function create_piece(){
+
+	const loaderTexture = new THREE.TextureLoader();
+	loaderTexture.load('images/box.jpg', (texture) => {
+	const material = new THREE.MeshBasicMaterial({
+		map: texture,
+		});
+        let geometry;
+        if(document.getElementsByName("units")[0].checked){
+			geometry = new THREE.BoxGeometry(document.getElementsByName("width")[0].value/100,document.getElementsByName("height")[0].value/100,document.getElementsByName("length")[0].value/100);
+			} 
+            if(document.getElementsByName("units")[1].checked)
+            {
+            geometry = new THREE.BoxGeometry(document.getElementsByName("width")[0].value/39.37,document.getElementsByName("height")[0].value/39.37,document.getElementsByName("length")[0].value/39.37);
+            } 
+            var cube = new THREE.Mesh( geometry, material );
+						 
+		cube.userData = [];
+		scene.add(cube);
+		pieces.push(cube);	
+		pieces2.push(cube);
+			
+	});
+}
+	
+function savePos(_mesh) {
+	var collisionBool=false;
+	var collisionBoolAll=false;
+	var collisionPoint;
+	let collisionBoolArray=[];
+		
+	var originPoint = _mesh.position.clone();
+
+    for (var vertexIndex = 0; vertexIndex < _mesh.geometry.vertices.length; vertexIndex++) {
+            
+        var localVertex = _mesh.geometry.vertices[vertexIndex].clone();       
+        var globalVertex = localVertex.applyMatrix4(_mesh.matrix);
+        var directionVector = globalVertex.sub(_mesh.position);
+        var ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize());
+        var collisionResults = ray.intersectObjects(collisionMesh);
+
+        if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
+          
+            collisionBool=true;
+            collisionBoolArray.push(collisionBool);
+            collisionPoint=collisionResults[0].point;
+             
+            controls2.enabled=false;    
+        }
+        else{
+        	controls2.enabled=true;
+        	collisionBool=false;
+        	collisionBoolArray.push(collisionBool);
+        }    
+    }
         
-        const light = new THREE.HemisphereLight(0xffffff, 0x43399d, 1);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.4);
-        directionalLight.position.set(2, 2, 2);
-        scene.add(light, directionalLight);
+	let contadorTrue=0;
+	for (var i = 0; i< collisionBoolArray.length;i++) {
+    	if(collisionBoolArray[i]===true){
+    		contadorTrue+=1;
+    	}
+	}
 
-        obj.position.sub(center);  // Adjust position
-    }, undefined, (error) => console.error(error));
+	if(contadorTrue>0){
+    	collisionBoolAll=true;
+	}
+
+	let posVector = _mesh.position.clone();
+	_mesh.userData.push([posVector,collisionBoolAll,collisionBoolArray]);
+
+	if(_mesh.userData.length>50){
+    	_mesh.userData.shift();
+	}            	
 }
 
-function create_piece() {
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.load('images/metal.jpg', (texture) => {
-        const isMetric = document.getElementsByName("units")[0].checked;
-        const factor = isMetric ? 100 : 39.37;
-        const geometry = new THREE.BoxGeometry(
-            document.getElementsByName("width")[0].value / factor,
-            document.getElementsByName("height")[0].value / factor,
-            document.getElementsByName("length")[0].value / factor
-        );
-        const material = new THREE.MeshBasicMaterial({map: texture});
-        const cube = new THREE.Mesh(geometry, material);
+function checkCollision2(_mesh) {
+	var collisionBool=false;
+	var collisionBoolAll=false;
+	var collisionPoint;
+	let collisionBoolArray=[];
+		
+    var originPoint = _mesh.position.clone();
 
-        scene.add(cube);
-        pieces.push(cube);
-        pieces2.push(cube);
-    });
-}
-
-function create_piece2() {
-    const isMetric = document.getElementsByName("units")[0].checked;
-    const factor = isMetric ? 200 : 78.74;
-    const geometry = new THREE.CylinderGeometry(
-        document.getElementsByName("width")[0].value / factor,
-        document.getElementsByName("width")[0].value / factor,
-        document.getElementsByName("length")[0].value / factor,
-        32
-    );
-    const material = new THREE.MeshPhongMaterial({color: 0xFFD966, shininess: 100});
-    const cylinder = new THREE.Mesh(geometry, material);
-
-    cylinder.rotateX(Math.PI / 2);
-    scene.add(cylinder);
-    pieces.push(cylinder);
-    pieces2.push(cylinder);
-}
-
-function saveOrCheckCollision(mesh, isSaving = true) {
-    const collisionBoolArray = [];
-    let collisionBoolAll = false;
-    const originPoint = mesh.position.clone();
-
-    const vertices = mesh.geometry.vertices || []; // Fallback for non-Buffer geometries
-    for (const localVertex of vertices) {
-        const globalVertex = localVertex.clone().applyMatrix4(mesh.matrix);
-        const directionVector = globalVertex.sub(mesh.position);
-        const ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize());
-        const collisionResults = ray.intersectObjects(collisionMesh);
-
-        const collision = collisionResults.length > 0 && collisionResults[0].distance < directionVector.length();
-        collisionBoolArray.push(collision);
+    for (var vertexIndex = 0; vertexIndex < _mesh.geometry.vertices.length; vertexIndex++) {
+            
+        var localVertex = _mesh.geometry.vertices[vertexIndex].clone();    
+        var globalVertex = localVertex.applyMatrix4(_mesh.matrix);
+        var directionVector = globalVertex.sub(_mesh.position);
+        var ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize());
+        var collisionResults = ray.intersectObjects(collisionMesh);
+           
+        if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
+          
+            collisionBool=true;
+            collisionBoolArray.push(collisionBool);
+            collisionPoint=collisionResults[0].point;   
+            controls2.enabled=false;
+           
+        }
+        else{
+        	controls2.enabled=true;
+        	collisionBool=false;
+        	collisionBoolArray.push(collisionBool);
+        }
+    }
+    let contadorTrue=0;
+    for (var i = 0; i< collisionBoolArray.length;i++) {
+    	if(collisionBoolArray[i]===true){
+    		contadorTrue+=1;
+    	}
     }
 
-    collisionBoolAll = collisionBoolArray.some(collision => collision);
-    if (isSaving) {
-        mesh.userData.push([mesh.position.clone(), collisionBoolAll, collisionBoolArray]);
-        if (mesh.userData.length > 50) mesh.userData.shift();
+    if(contadorTrue>0){
+    	collisionBoolAll=true;
     }
-
-    return [collisionBoolAll, collisionBoolArray];
+             	
+    return [collisionBoolAll,collisionPoint];
 }
-
-function animate() {
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
-    controls.update();
-
-    pieces.forEach(piece => saveOrCheckCollision(piece));
-}
+  
+var animate = function (){
+	requestAnimationFrame(animate);
+	renderer.render(scene,camera);
+	controls.update();
+				   
+	var collvar;
+	for(var i=1;i<pieces.length;i++){	
+		savePos(pieces[i]);
+			   		
+		_mesh = pieces[i];
+	};
+};
 
 animate();
-
-
+    
 
