@@ -16,6 +16,14 @@ renderer.setSize(container.offsetWidth, container.offsetHeight);
 document.body.appendChild( container );
 container.appendChild(renderer.domElement);
 
+const GRAVITY = -9.8;  // gravity constant (m/s^2)
+const deltaTime = 0.016; // approximate time between frames (60fps = 1/60 = 0.016s)
+
+// Initialize velocities for pieces
+pieces.forEach(piece => {
+    piece.velocity = new THREE.Vector3(0, 0, 0);  // velocity in (x, y, z)
+});
+
 //object array
 var collisionMesh = [];
 var pieces=[];
@@ -204,17 +212,26 @@ function checkCollision2(_mesh) {
     return [collisionBoolAll,collisionPoint];
 }
   
-var animate = function (){
-	requestAnimationFrame(animate);
-	renderer.render(scene,camera);
-	controls.update();
-				   
-	var collvar;
-	for(var i=1;i<pieces.length;i++){	
-		savePos(pieces[i]);
-			   		
-		_mesh = pieces[i];
-	};
+var animate = function () {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+    controls.update();
+
+    var collvar;
+    for (var i = 1; i < pieces.length; i++) {
+        var _mesh = pieces[i];
+        savePos(_mesh);  // Existing collision check
+
+        // Apply gravity to y-axis
+        _mesh.velocity.y += GRAVITY * deltaTime;  // Apply gravity to velocity
+        _mesh.position.y += _mesh.velocity.y * deltaTime;  // Update position based on velocity
+
+        // Check for collisions with the floor
+        if (_mesh.position.y <= 0) {  // Assuming ground level is y = 0
+            _mesh.position.y = 0;  // Stop object at the floor
+            _mesh.velocity.y = 0;  // Reset velocity when it hits the floor
+        }
+    }
 };
 
 animate();
