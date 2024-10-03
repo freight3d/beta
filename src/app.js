@@ -1,6 +1,6 @@
 // Gravity constant
-const GRAVITY = -9.8; // m/s² or units/s²
-const groundLevel = -5; // Define the ground level for stopping objects
+const GRAVITY = -9.8; // m/s², downward force
+const groundLevel = -5; // Define the ground level where objects stop
 
 // Cache window and container size
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -25,7 +25,7 @@ const collisionMesh = [];
 const pieces = [];
 const pieces2 = [];
 
-// Add velocity property to each piece for gravity calculation
+// Add velocity property for each piece to calculate gravity effect
 pieces.forEach(piece => piece.velocity = new THREE.Vector3(0, 0, 0));
 
 const controls2 = new THREE.DragControls(pieces2, camera, renderer.domElement);
@@ -55,7 +55,7 @@ function uld(model_name) {
 
         const box = new THREE.Box3().setFromObject(obj);
         const center = box.getCenter(new THREE.Vector3());
-        
+
         const light = new THREE.HemisphereLight(0xffffff, 0x43399d, 1);
         const directionalLight = new THREE.DirectionalLight(0xffffff, 0.4);
         directionalLight.position.set(2, 2, 2);
@@ -158,11 +158,9 @@ function animate() {
 
     pieces.forEach(piece => {
         saveOrCheckCollision(piece);
-        applyGravity(piece, deltaTime);
+        applyGravity(piece, deltaTime); // Apply gravity on each piece
     });
 }
 
 animate();
-
-
-			
+	
