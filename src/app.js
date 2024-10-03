@@ -1,5 +1,9 @@
+// Gravity constant
+const GRAVITY = -9.8; // m/s² or units/s²
+const groundLevel = -5; // Define the ground level for stopping objects
+
 // Cache window and container size
-const renderer = new THREE.WebGLRenderer({antialias: true});
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.physicallyCorrectLights = true;
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.setClearColor(0xcccccc);
@@ -20,6 +24,9 @@ container.appendChild(renderer.domElement);
 const collisionMesh = [];
 const pieces = [];
 const pieces2 = [];
+
+// Add velocity property to each piece for gravity calculation
+pieces.forEach(piece => piece.velocity = new THREE.Vector3(0, 0, 0));
 
 const controls2 = new THREE.DragControls(pieces2, camera, renderer.domElement);
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -68,8 +75,11 @@ function create_piece() {
             document.getElementsByName("height")[0].value / factor,
             document.getElementsByName("length")[0].value / factor
         );
-        const material = new THREE.MeshBasicMaterial({map: texture});
+        const material = new THREE.MeshBasicMaterial({ map: texture });
         const cube = new THREE.Mesh(geometry, material);
+
+        // Initialize velocity for gravity
+        cube.velocity = new THREE.Vector3(0, 0, 0);
 
         scene.add(cube);
         pieces.push(cube);
@@ -86,10 +96,14 @@ function create_piece2() {
         document.getElementsByName("length")[0].value / factor,
         32
     );
-    const material = new THREE.MeshPhongMaterial({color: 0xFFD966, shininess: 100});
+    const material = new THREE.MeshPhongMaterial({ color: 0xFFD966, shininess: 100 });
     const cylinder = new THREE.Mesh(geometry, material);
 
     cylinder.rotateX(Math.PI / 2);
+
+    // Initialize velocity for gravity
+    cylinder.velocity = new THREE.Vector3(0, 0, 0);
+
     scene.add(cylinder);
     pieces.push(cylinder);
     pieces2.push(cylinder);
@@ -120,12 +134,32 @@ function saveOrCheckCollision(mesh, isSaving = true) {
     return [collisionBoolAll, collisionBoolArray];
 }
 
+// Update position based on velocity and gravity
+function applyGravity(mesh, deltaTime) {
+    // Apply gravity to the object's velocity (along Y-axis)
+    mesh.velocity.y += GRAVITY * deltaTime;
+
+    // Update position based on velocity
+    mesh.position.add(mesh.velocity.clone().multiplyScalar(deltaTime));
+
+    // Stop falling when it reaches the ground
+    if (mesh.position.y < groundLevel) {
+        mesh.position.y = groundLevel;
+        mesh.velocity.y = 0; // Stop the vertical motion upon collision with the ground
+    }
+}
+
 function animate() {
+    const deltaTime = 0.016; // Approximate time between frames (~60fps)
+
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
     controls.update();
 
-    pieces.forEach(piece => saveOrCheckCollision(piece));
+    pieces.forEach(piece => {
+        saveOrCheckCollision(piece);
+        applyGravity(piece, deltaTime);
+    });
 }
 
 animate();
