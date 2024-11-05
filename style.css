@@ -74,12 +74,12 @@ canvas {
 
 .button4 {
   color: black;
-  border: 1px solid #797979;
+  border: 1px solid #6f015d;
   border-radius: 4px;
 }
 
 .button4:hover {
-  background-color: #797979;
+  background-color: #6f015d;
   color: white;
 }
 
