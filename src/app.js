@@ -126,7 +126,7 @@ function preventPiecesFalling(disable) {
                 body.mass = 0; // Set mass to 0 to prevent falling
                 body.velocity.set(0, 0, 0); // Stop any movement
             } else {
-                body.mass = 1; // Restore mass to original value
+                body.mass = 10; // Restore mass to original value
                 body.updateMassProperties(); // Update mass properties
             }
         }
