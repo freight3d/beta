@@ -1,5 +1,5 @@
 var world = new CANNON.World();
-world.gravity.set(0, -5, 0); // Set gravity (Y-axis)
+world.gravity.set(0, -9.82, 0); // Set gravity (Y-axis)
 
 const renderer =  new THREE.WebGLRenderer({antialias: true});
 renderer.physicallyCorrectLights = true;
@@ -71,7 +71,7 @@ renderer.domElement.addEventListener('mouseup', (event) => {
     if (event.button === 2 && selectedPiece) { // Right mouse button
         // Restore the mass of the piece to its original value (e.g., 10)
         if (selectedPiece.userData.physicsBody) {
-            selectedPiece.userData.physicsBody.mass = 10;
+            selectedPiece.userData.physicsBody.mass = 50;
             selectedPiece.userData.physicsBody.updateMassProperties();
         }
 
@@ -126,7 +126,7 @@ function preventPiecesFalling(disable) {
                 body.mass = 0; // Set mass to 0 to prevent falling
                 body.velocity.set(0, 0, 0); // Stop any movement
             } else {
-                body.mass = 10; // Restore mass to original value
+                body.mass = 50; // Restore mass to original value
                 body.updateMassProperties(); // Update mass properties
             }
         }
@@ -327,7 +327,7 @@ function create_piece() {
             });   
         var shape = new CANNON.Box(new CANNON.Vec3(width / 2, height / 2, length / 2));
         var body = new CANNON.Body({
-            mass: 10, // Set to 0 for static objects (no gravity)
+            mass: 50, // Set to 0 for static objects (no gravity)
             position: new CANNON.Vec3(cube.position.x-4, cube.position.y+5, cube.position.z),
             material: softMaterial
         });
